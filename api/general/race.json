@@ -1,0 +1,14 @@
+{
+    "human": {
+        "base_stats": {
+            "stamina": 2,
+            "armour": 2,
+            "strength": 2,
+            "intelect": 2,
+            "critical_strike": 2,
+            "agility": 2
+
+        },
+        "start_location": "royal_fields"
+    }   
+}

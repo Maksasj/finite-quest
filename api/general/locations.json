@@ -1,0 +1,19 @@
+{
+    "royal_fields": {
+        "connections": [
+            "foggy_ravine"
+        ],
+        "mobs": [
+            "slime_2",
+            "rat_3"
+        ]
+    },
+    "foggy_ravine": {
+        "connections": [
+            "royal_fields"
+        ],
+        "mobs": [
+            "slime_5"
+        ]
+    }
+}

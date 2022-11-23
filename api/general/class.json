@@ -1,0 +1,12 @@
+{
+    "warrior": {
+        "base_stats": {
+            "stamina": 3,
+            "armour": 3,
+            "strength": 4,
+            "intelect": 0,
+            "critical_strike": 1,
+            "agility": 0
+        }
+    }   
+}
