@@ -127,9 +127,7 @@ if($success == true) {
 
     $character["gold"] += $gold;
     $character["xp"] += $xp;
-
-
-    
+        
     //Roll item drops
     foreach($mob["drops"] as $key => $item_data) {
         $item[$key] = $item_data;
