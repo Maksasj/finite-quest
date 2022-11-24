@@ -41,6 +41,13 @@ if (!$user["characters"][$character_name]) {
 
 $character = json_decode(file_get_contents("../charactersData/" . $character_name . ".json"), true);
 
+$time_between_combat = 2;
+
+if ($character["timestamps"]["last_combat"] + $time_between_combat > time()) {
+    echo "Combat in process";
+    exit;
+}
+
 $locations = json_decode(file_get_contents("general/locations.json"), true);
 
 //Check if such mob exist on this location
@@ -126,8 +133,6 @@ if($success == true) {
     //Roll item drops
     foreach($mob["drops"] as $key => $item_data) {
         $item[$key] = $item_data;
-        echo prettyPrint(json_encode($item));
-        echo "<br>";
 
         $chance = rand(0, 100) / 100.0;
 
