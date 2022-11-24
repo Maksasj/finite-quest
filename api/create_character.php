@@ -58,8 +58,18 @@ $character["current_location"] = getClassStartingLocation($race);
 $character["gold"] = 0;
 $character["xp"] = 0;
 
-$character["inventory"] = array();
-$character["ammo_bag"] = array();
+$character["inventory"]["equipment"]["head"] = array();
+$character["inventory"]["equipment"]["chest"] = array();
+$character["inventory"]["equipment"]["legs"] = array();
+$character["inventory"]["equipment"]["feet"] = array();
+$character["inventory"]["equipment"]["main_hand"] = array();
+$character["inventory"]["bag"] = array();
+$character["inventory"]["ammo_bag"] = array();
+
+
+$character["timestamps"]["creation_date"] = time();
+$character["timestamps"]["last_activity"] = time();
+$character["timestamps"]["last_combat"] = time();
 
 file_put_contents("../charactersData/" . $character_name . ".json", prettyPrint(json_encode($character)));
 file_put_contents("../userData/" . $username . ".json", prettyPrint(json_encode($user)));
