@@ -1,6 +1,6 @@
 <?php
 
-include "utils/prettyPrint.php"
+include_once "utils/prettyPrint.php"
 
 $username = $_POST['username'];
 $password_hash = "";

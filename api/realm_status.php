@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json");
-include "../utils/prettyPrint.php";
+include_once "../utils/prettyPrint.php";
 
 $response["realm_name"] = "Ursina";
 $response["realm_status"] = "active";

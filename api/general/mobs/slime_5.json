@@ -1,4 +1,5 @@
 {
+    "name": "Slime",
     "lvl": 5,
     "xp_reward": 2,
     "base_stats": {
@@ -18,17 +19,23 @@
     },
     "drops": {
         "slime_ball": {
-            "chance": 0.8,
-            "count": {
-                "min": 1,
-                "max": 5
+            "name": "Slime Ball",
+            "drop": {
+                "chance": 0.8,
+                "count": {
+                    "min": 1,
+                    "max": 5
+                }
             }
         },
         "slime_cube": {
-            "chance": 0.2,
-            "count": {
-                "min": 1,
-                "max": 2
+            "name": "Slime Cube",
+            "drop": {
+                "chance": 0.2,
+                "count": {
+                    "min": 1,
+                    "max": 2
+                }
             }
         }
     }

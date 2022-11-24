@@ -1,8 +1,8 @@
 <?php
 header("Content-Type: application/json");
 
-include "../utils/prettyPrint.php";
-include "../utils/calculateCharacterStats.php";
+include_once "../utils/prettyPrint.php";
+include_once "../utils/calculateCharacterStats.php";
 
 $character = $_GET['character'];
 

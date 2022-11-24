@@ -1,7 +1,15 @@
 <?php
+header("Content-Type: application/json");
 
-include "../utils/calculateCharacterStats.php";
-include "../utils/prettyPrint.php";
+include_once "../utils/calculateCharacterStats.php";
+
+include_once "../utils/calculateCharacterMaxHealth.php";
+include_once "../utils/calculateMobMaxHealth.php";
+
+include_once "../utils/calculateDroppedXp.php";
+include_once "../utils/calculateDroppedGold.php";
+
+include_once "../utils/prettyPrint.php";
 
 $username = $_GET['username'];
 $token = $_GET['token'];
@@ -41,22 +49,125 @@ if(!in_array($mob_name, $locations[$character["current_location"]]["mobs"])) {
     exit;
 }
 
+function calculatePlayerDamage($character) {
+    return 19;
+}
+
+function calculateMobDamage($character) {
+    return 2;
+}
+
 $mob = json_decode(file_get_contents("general/mobs/" . $mob_name . ".json"), true);
 
 $character_stats = calculateCharacterStats($character);
 
-//Мега костыль но да
-if($character_stats["strength"] > $mob["base_stats"]["strength"]) {
-    echo "Success";
+//Lets start battle
+$success = false;
+$logs["logs"] = array();
+$character_health = calculateCharacterMaxHealth($character);
+$mob_health = calculateMobMaxHealth($mob);
 
-    $character["gold"] += 1; //calculateDroppedGold($mob);
-    $character["xp"] += 1; //calculateDroppedXp($mob);
+for($i = 0; true; $i++) {
+    $character_dealed_damage = calculatePlayerDamage($character); 
+    $mob_health -= $character_dealed_damage;
+    
+    if($mob_health < 0) {
+        $log_tmp["damage_dealer"] = $character["name"];
+        $log_tmp["damage"] = $character_dealed_damage;
+        $log_tmp["status"] = "final";
 
-    file_put_contents("../charactersData/" . $character_name . ".json", prettyPrint(json_encode($character)));
-} else {
-    echo "Fail";
+        array_push($logs["logs"], $log_tmp);
+
+        $success = true;
+
+        break;
+    }
+
+    $log_tmp["damage_dealer"] = $character["name"];
+    $log_tmp["damage"] = $character_dealed_damage;
+    $log_tmp["status"] = "in_process";
+
+    array_push($logs["logs"], $log_tmp);
+
+    $mob_dealed_damage = calculateMobDamage($mob); 
+    $character_health -= $mob_dealed_damage;
+    
+    if($character_health < 0) {
+        $log_tmp["damage_dealer"] = $mob["name"];
+        $log_tmp["damage"] = $mob_dealed_damage;
+        $log_tmp["status"] = "final";
+
+        array_push($logs["logs"], $log_tmp);
+
+        break;
+    }
+
+    $log_tmp["damage_dealer"] = $mob["name"];
+    $log_tmp["damage"] = $mob_dealed_damage;
+    $log_tmp["status"] = "in_process";
+
+    array_push($logs["logs"], $log_tmp);
 }
 
-echo $character_stats["stamina"];
+if($success == true) {
+    $xp = calculateDroppedXp($mob);
+    $gold = calculateDroppedGold($mob);
 
+    $logs["result"]["result"] = "success";
+    $logs["result"]["received"]["xp"] = $xp;
+    $logs["result"]["received"]["gold"] = $gold;
+    $logs["result"]["received"]["items"] = array();
+
+    $character["gold"] += $gold;
+    $character["xp"] += $xp;
+
+
+    
+    //Roll item drops
+    foreach($mob["drops"] as $key => $item_data) {
+        $item[$key] = $item_data;
+        echo prettyPrint(json_encode($item));
+        echo "<br>";
+
+        $chance = rand(0, 100) / 100.0;
+
+        if($chance < $item[$key]["drop"]["chance"]) {
+            $min = $item[$key]["drop"]["count"]["min"];
+            $max = $item[$key]["drop"]["count"]["max"];
+
+            $item_count = rand($min, $max);
+            
+            if($item_count == 0) continue;
+
+            if(array_key_exists($key, $character["inventory"]["bag"])) {
+                //Item exist in invetory
+
+                $character["inventory"]["bag"][$key]["count"] += $item_count;
+            } else {
+                //Item does not exist in invetory
+
+                $character["inventory"]["bag"][$key] = $item_data;
+                $character["inventory"]["bag"][$key]["count"] = $item_count;
+            }
+        }
+
+        unset($item);
+    }
+
+} else {
+    $logs["result"]["result"] = "fail";
+
+    $logs["result"]["received"]["xp"] = 0;
+    $logs["result"]["received"]["gold"] = 0;
+    $logs["result"]["received"]["items"] = array();
+}
+
+$logs["result"]["time"] = time();
+
+$character["timestamps"]["last_combat"] = time();
+$character["timestamps"]["last_activity"] = time();
+
+file_put_contents("../charactersData/" . $character_name . ".json", prettyPrint(json_encode($character)));
+
+echo prettyPrint(json_encode($logs));
 ?>

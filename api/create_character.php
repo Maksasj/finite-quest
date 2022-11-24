@@ -1,9 +1,9 @@
 <?php
 
-include "../utils/raceValidation.php";
-include "../utils/prettyPrint.php";
-include "../utils/combatClassValidation.php";
-include "../utils/getClassStartingLocation.php";
+include_once "../utils/raceValidation.php";
+include_once "../utils/prettyPrint.php";
+include_once "../utils/combatClassValidation.php";
+include_once "../utils/getClassStartingLocation.php";
 
 //Auntification
 $username = $_GET['username'];
