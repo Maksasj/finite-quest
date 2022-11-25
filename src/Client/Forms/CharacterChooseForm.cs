@@ -16,6 +16,7 @@ namespace Client
 {
     public partial class CharacterChooseForm : Form
     {
+        public string _character;
         public CharacterChooseForm()
         {
             InitializeComponent();
@@ -37,6 +38,9 @@ namespace Client
         private void button1_Click(object sender, EventArgs e)
         {
             if (characterSelectionListBox.SelectedItems.Count == 0) return;
+
+            _character = characterSelectionListBox.GetItemText(characterSelectionListBox.SelectedItem);
+            this.Close();
         }
 
         public string PGet(string uri)

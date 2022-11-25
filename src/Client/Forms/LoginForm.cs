@@ -20,6 +20,9 @@ namespace Client
 {
     public partial class LoginForm : Form
     {
+        public string _username;
+        public string _token;
+
         public LoginForm()
         {
             InitializeComponent();
@@ -56,7 +59,9 @@ namespace Client
             var response = PGet("http://www.ursina.io/api/login.php?username=" + username + "&token=" + token);
 
             if ( response.Equals("Success") ) {
-
+                _username = username;
+                _token = token;
+                this.Close();
             } else {
 
             }

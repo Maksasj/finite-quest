@@ -2,7 +2,8 @@
     "realms": [
         {
             "realm-name": "Ursina",
-            "realm-status": "online"
+            "realm-status": "online",
+            "main-endpoint": "http://ursina.io/"
         }
     ]
 }
