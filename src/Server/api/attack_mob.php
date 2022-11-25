@@ -41,7 +41,7 @@ if (!$user["characters"][$character_name]) {
 
 $character = json_decode(file_get_contents("../charactersData/" . $character_name . ".json"), true);
 
-$time_between_combat = 2;
+$time_between_combat = 5;
 
 if ($character["timestamps"]["last_combat"] + $time_between_combat > time()) {
     echo "Combat in process";
@@ -57,7 +57,7 @@ if(!in_array($mob_name, $locations[$character["current_location"]]["mobs"])) {
 }
 
 function calculatePlayerDamage($character) {
-    return 19;
+    return 2;
 }
 
 function calculateMobDamage($character) {
@@ -169,6 +169,7 @@ $logs["result"]["time"] = time();
 
 $character["timestamps"]["last_combat"] = time();
 $character["timestamps"]["last_activity"] = time();
+$character["timestamps"]["activity_cooldown"] = time();
 
 file_put_contents("../charactersData/" . $character_name . ".json", prettyPrint(json_encode($character)));
 

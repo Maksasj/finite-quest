@@ -35,13 +35,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.githubLinkButton = new System.Windows.Forms.Button();
+            this.pleaseTryAgainLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 249);
+            this.button1.Location = new System.Drawing.Point(15, 249);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 27);
+            this.button1.Size = new System.Drawing.Size(94, 27);
             this.button1.TabIndex = 0;
             this.button1.Text = "Login";
             this.button1.UseVisualStyleBackColor = true;
@@ -53,7 +55,7 @@
             this.serverList.FormattingEnabled = true;
             this.serverList.Location = new System.Drawing.Point(12, 29);
             this.serverList.Name = "serverList";
-            this.serverList.Size = new System.Drawing.Size(201, 72);
+            this.serverList.Size = new System.Drawing.Size(296, 72);
             this.serverList.TabIndex = 1;
             this.serverList.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
@@ -61,7 +63,7 @@
             // 
             this.UsernameTextBox.Location = new System.Drawing.Point(12, 123);
             this.UsernameTextBox.Name = "UsernameTextBox";
-            this.UsernameTextBox.Size = new System.Drawing.Size(139, 22);
+            this.UsernameTextBox.Size = new System.Drawing.Size(296, 22);
             this.UsernameTextBox.TabIndex = 2;
             this.UsernameTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -69,7 +71,8 @@
             // 
             this.PasswordTextBox.Location = new System.Drawing.Point(12, 169);
             this.PasswordTextBox.Name = "PasswordTextBox";
-            this.PasswordTextBox.Size = new System.Drawing.Size(139, 22);
+            this.PasswordTextBox.PasswordChar = '*';
+            this.PasswordTextBox.Size = new System.Drawing.Size(296, 22);
             this.PasswordTextBox.TabIndex = 3;
             // 
             // label1
@@ -100,11 +103,35 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Realm List";
             // 
-            // Form1
+            // githubLinkButton
+            // 
+            this.githubLinkButton.Location = new System.Drawing.Point(214, 249);
+            this.githubLinkButton.Name = "githubLinkButton";
+            this.githubLinkButton.Size = new System.Drawing.Size(94, 27);
+            this.githubLinkButton.TabIndex = 7;
+            this.githubLinkButton.Text = "Github";
+            this.githubLinkButton.UseVisualStyleBackColor = true;
+            this.githubLinkButton.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // pleaseTryAgainLabel
+            // 
+            this.pleaseTryAgainLabel.AutoSize = true;
+            this.pleaseTryAgainLabel.ForeColor = System.Drawing.Color.Red;
+            this.pleaseTryAgainLabel.Location = new System.Drawing.Point(12, 230);
+            this.pleaseTryAgainLabel.Name = "pleaseTryAgainLabel";
+            this.pleaseTryAgainLabel.Size = new System.Drawing.Size(111, 16);
+            this.pleaseTryAgainLabel.TabIndex = 8;
+            this.pleaseTryAgainLabel.Text = "Please Try Again";
+            this.pleaseTryAgainLabel.Visible = false;
+            this.pleaseTryAgainLabel.Click += new System.EventHandler(this.pleaseTryAgainLabel_Click);
+            // 
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(320, 288);
+            this.Controls.Add(this.pleaseTryAgainLabel);
+            this.Controls.Add(this.githubLinkButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -112,7 +139,7 @@
             this.Controls.Add(this.UsernameTextBox);
             this.Controls.Add(this.serverList);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
+            this.Name = "LoginForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -128,6 +155,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button githubLinkButton;
+        private System.Windows.Forms.Label pleaseTryAgainLabel;
     }
 }
 

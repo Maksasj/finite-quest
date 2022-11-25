@@ -16,10 +16,8 @@ namespace Client
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
+            //Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            Application.Run(new MainGameForm());
 
             String username = String.Empty;
             String token = String.Empty;
@@ -29,10 +27,15 @@ namespace Client
             Application.Run(lf);
             username = lf._username;
             token = lf._token;
+            if (!lf._done) return;
 
-            var ccf = new CharacterChooseForm();
+            var ccf = new CharacterChooseForm(username);
             Application.Run(ccf);
             character = ccf._character;
+            if (!ccf._done) return;
+
+            var mgf = new MainGameForm(username, token, character);
+            Application.Run(mgf);
 
             Debug.WriteLine(username);
             Debug.WriteLine(token);

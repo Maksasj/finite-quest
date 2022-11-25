@@ -16,12 +16,16 @@ using System.Diagnostics;
 using System.Net;
 using System.IO;
 
+using Client.Utils;
+
 namespace Client
 {
     public partial class LoginForm : Form
     {
         public string _username;
         public string _token;
+
+        public bool _done = false;
 
         public LoginForm()
         {
@@ -44,49 +48,43 @@ namespace Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (serverList.SelectedItems.Count == 0) return;
-            if (String.IsNullOrEmpty(UsernameTextBox.Text)) return;
-            if (String.IsNullOrEmpty(PasswordTextBox.Text)) return;
+            if (serverList.SelectedItems.Count == 0)
+            {
+                pleaseTryAgainLabel.Visible = true;
+                return;
+            }
 
-            //Lets try to loggin
-            var username = UsernameTextBox.Text;
+
+            if (String.IsNullOrEmpty(UsernameTextBox.Text))
+            {
+                pleaseTryAgainLabel.Visible = true;
+                return;
+            }
+            if (String.IsNullOrEmpty(PasswordTextBox.Text))
+            {
+                pleaseTryAgainLabel.Visible = true;
+                return;
+            }
+
+                //Lets try to loggin
+                var username = UsernameTextBox.Text;
             var password = PasswordTextBox.Text;
 
-            string token = GetHashString(password);
-            token = GetHashString(token + username);
-            token = GetHashString(token);
+            string token = Hash.hash256(password);
+            token = Hash.hash256(token + username);
+            token = Hash.hash256(token);
 
-            var response = PGet("http://www.ursina.io/api/login.php?username=" + username + "&token=" + token);
+            var response = GetRequest.get("http://www.ursina.io/api/login.php?username=" + username + "&token=" + token);
 
             if ( response.Equals("Success") ) {
                 _username = username;
                 _token = token;
+                _done = true;
                 this.Close();
             } else {
-
+                pleaseTryAgainLabel.Visible = true;
+                return;
             }
-        }
-
-        public string PGet(string uri)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-
-        public static string GetHashString(string inputString)
-        {
-            byte[] plainHash = (new SHA256Managed()).ComputeHash(Encoding.UTF8.GetBytes(inputString));
-
-            string hashValue = BitConverter.ToString(plainHash);
-
-            return hashValue.Replace("-", String.Empty).ToLower();
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,6 +108,15 @@ namespace Client
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/Maksasj/finite-quest");
+        }
+
+        private void pleaseTryAgainLabel_Click(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -20,6 +20,7 @@
     "drops": {
         "slime_ball": {
             "name": "Slime Ball",
+            "type": "crafting_material",
             "drop": {
                 "chance": 0.8,
                 "count": {
@@ -30,10 +31,30 @@
         },
         "slime_cube": {
             "name": "Slime Cube",
+            "type": "crafting_material",
             "drop": {
                 "chance": 0.2,
                 "count": {
                     "min": 0,
+                    "max": 1
+                }
+            }
+        },
+        "woodland_tunic": {
+            "name": "Woodland Tunic",
+            "type": "equipment_chest",
+            "base_stats": {
+                "stamina": 3,
+                "armour": 3,
+                "strength": 1,
+                "intelect": 0,
+                "critical_strike": 0,
+                "agility": -1
+            },
+            "drop": {
+                "chance": 0.03,
+                "count": {
+                    "min": 1,
                     "max": 1
                 }
             }

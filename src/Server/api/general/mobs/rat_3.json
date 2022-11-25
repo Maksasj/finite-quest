@@ -20,6 +20,7 @@
     "drops": {
         "rat_tail": {
             "name": "Rat Tail",
+            "type": "crafting_material",
             "drop": {
                 "chance": 0.6,
                 "count": {
@@ -30,6 +31,7 @@
         },
         "tiny_rat_claw": {
             "name": "Tiny Rat Claw",
+            "type": "crafting_material",
             "drop": {
                 "chance": 0.1,
                 "count": {

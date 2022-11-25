@@ -20,6 +20,7 @@
     "drops": {
         "slime_ball": {
             "name": "Slime Ball",
+            "type": "crafting_material",
             "drop": {
                 "chance": 0.8,
                 "count": {
@@ -30,6 +31,7 @@
         },
         "slime_cube": {
             "name": "Slime Cube",
+            "type": "crafting_material",
             "drop": {
                 "chance": 0.2,
                 "count": {

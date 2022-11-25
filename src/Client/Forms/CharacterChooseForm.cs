@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,16 +17,18 @@ namespace Client
 {
     public partial class CharacterChooseForm : Form
     {
+        public string _username;
         public string _character;
-        public CharacterChooseForm()
+        public bool _done;
+        public CharacterChooseForm(string _username)
         {
             InitializeComponent();
 
             var webClient = new System.Net.WebClient();
 
-            var username = "maksasj";
+            var username = _username;
 
-            var response = PGet("http://www.ursina.io/api/get_player_character_list.php?username=" + username);
+            var response = GetRequest.get("http://www.ursina.io/api/get_player_character_list.php?username=" + _username);
 
             var jsonObject = JsonNode.Parse(response).AsObject();
 
@@ -40,20 +43,8 @@ namespace Client
             if (characterSelectionListBox.SelectedItems.Count == 0) return;
 
             _character = characterSelectionListBox.GetItemText(characterSelectionListBox.SelectedItem);
+            _done = true;
             this.Close();
-        }
-
-        public string PGet(string uri)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
         }
 
         private void characterSelectionListBox_SelectedIndexChanged(object sender, EventArgs e)

@@ -15,6 +15,18 @@ function calculateCharacterStats($character) {
     $result["critical_strike"]  = $races[$race]["base_stats"]["critical_strike"] +  $classes[$class]["base_stats"]["critical_strike"];
     $result["agility"]          = $races[$race]["base_stats"]["agility"] +          $classes[$class]["base_stats"]["agility"];
 
+    foreach($character["inventory"]["equipment"] as $key => $value)  {
+        foreach($value as $key => $value)  {
+            $result["stamina"] += $value["base_stats"]["stamina"];
+            $result["armour"] += $value["base_stats"]["armour"];
+
+            $result["strength"] += $value["base_stats"]["strength"];
+            $result["intelect"] += $value["base_stats"]["intelect"];
+            $result["critical_strike"] += $value["base_stats"]["critical_strike"];
+            $result["agility"] += $value["base_stats"]["agility"];
+        }
+    }
+
     return $result;
 }
 

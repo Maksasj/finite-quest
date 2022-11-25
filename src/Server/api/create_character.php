@@ -57,12 +57,15 @@ $character["current_location"] = getClassStartingLocation($race);
 
 $character["gold"] = 0;
 $character["xp"] = 0;
+$character["xp_until_next_lvl"] = 100;
+$character["lvl"] = 0;
 
-$character["inventory"]["equipment"]["head"] = array();
-$character["inventory"]["equipment"]["chest"] = array();
-$character["inventory"]["equipment"]["legs"] = array();
-$character["inventory"]["equipment"]["feet"] = array();
-$character["inventory"]["equipment"]["main_hand"] = array();
+$character["inventory"]["equipment"]["head"] = new stdClass();
+$character["inventory"]["equipment"]["chest"] = new stdClass();
+$character["inventory"]["equipment"]["legs"] = new stdClass();
+$character["inventory"]["equipment"]["feet"] = new stdClass();
+$character["inventory"]["equipment"]["main_hand"] = new stdClass();
+
 $character["inventory"]["bag"] = array();
 $character["inventory"]["ammo_bag"] = array();
 
