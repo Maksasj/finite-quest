@@ -1,4 +1,6 @@
-﻿namespace Client.Forms
+﻿using System.Windows.Forms;
+
+namespace Client.Forms
 {
     partial class MainGameForm
     {
@@ -67,12 +69,14 @@
             this.maxMPLabelStatic = new System.Windows.Forms.Label();
             this.maxHealthLabel = new System.Windows.Forms.Label();
             this.maxManaLabel = new System.Windows.Forms.Label();
+            this.goldLabelFixed = new System.Windows.Forms.Label();
+            this.goldLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // experienceProgressBar
             // 
             this.experienceProgressBar.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.experienceProgressBar.Location = new System.Drawing.Point(12, 108);
+            this.experienceProgressBar.Location = new System.Drawing.Point(12, 129);
             this.experienceProgressBar.Name = "experienceProgressBar";
             this.experienceProgressBar.Size = new System.Drawing.Size(163, 23);
             this.experienceProgressBar.TabIndex = 0;
@@ -94,6 +98,7 @@
             this.equipButton.TabIndex = 3;
             this.equipButton.Text = "Equip";
             this.equipButton.UseVisualStyleBackColor = true;
+            this.equipButton.Click += new System.EventHandler(this.equipButton_Click);
             // 
             // dropButton
             // 
@@ -121,6 +126,7 @@
             // 
             // Timer01S
             // 
+            this.Timer01S.Enabled = true;
             this.Timer01S.Tick += new System.EventHandler(this.Timer01s);
             // 
             // nameRaceFixed
@@ -174,7 +180,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(9, 89);
+            this.label7.Location = new System.Drawing.Point(9, 110);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(85, 16);
             this.label7.TabIndex = 13;
@@ -204,7 +210,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(9, 134);
+            this.label9.Location = new System.Drawing.Point(9, 155);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(42, 16);
             this.label9.TabIndex = 16;
@@ -214,7 +220,7 @@
             // 
             this.statList.FormattingEnabled = true;
             this.statList.ItemHeight = 16;
-            this.statList.Location = new System.Drawing.Point(12, 153);
+            this.statList.Location = new System.Drawing.Point(12, 174);
             this.statList.Name = "statList";
             this.statList.Size = new System.Drawing.Size(172, 180);
             this.statList.TabIndex = 17;
@@ -251,9 +257,9 @@
             this.levelLabel.AutoSize = true;
             this.levelLabel.Location = new System.Drawing.Point(130, 73);
             this.levelLabel.Name = "levelLabel";
-            this.levelLabel.Size = new System.Drawing.Size(40, 16);
+            this.levelLabel.Size = new System.Drawing.Size(14, 16);
             this.levelLabel.TabIndex = 21;
-            this.levelLabel.Text = "Level";
+            this.levelLabel.Text = "0";
             // 
             // button1
             // 
@@ -336,6 +342,7 @@
             // 
             // poiList
             // 
+            this.poiList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.poiList.FormattingEnabled = true;
             this.poiList.ItemHeight = 16;
             this.poiList.Location = new System.Drawing.Point(499, 25);
@@ -343,6 +350,7 @@
             this.poiList.ScrollAlwaysVisible = true;
             this.poiList.Size = new System.Drawing.Size(225, 244);
             this.poiList.TabIndex = 32;
+            this.poiList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox1_DrawItem);
             this.poiList.SelectedIndexChanged += new System.EventHandler(this.poiList_SelectedIndexChanged);
             // 
             // inventoryList
@@ -366,7 +374,7 @@
             // xpLabel
             // 
             this.xpLabel.AutoSize = true;
-            this.xpLabel.Location = new System.Drawing.Point(117, 89);
+            this.xpLabel.Location = new System.Drawing.Point(117, 110);
             this.xpLabel.Name = "xpLabel";
             this.xpLabel.Size = new System.Drawing.Size(67, 16);
             this.xpLabel.TabIndex = 35;
@@ -377,7 +385,7 @@
             // 
             this.poolsLabel.AutoSize = true;
             this.poolsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.poolsLabel.Location = new System.Drawing.Point(9, 336);
+            this.poolsLabel.Location = new System.Drawing.Point(9, 357);
             this.poolsLabel.Name = "poolsLabel";
             this.poolsLabel.Size = new System.Drawing.Size(47, 16);
             this.poolsLabel.TabIndex = 36;
@@ -386,7 +394,7 @@
             // maxHPLabelStatic
             // 
             this.maxHPLabelStatic.AutoSize = true;
-            this.maxHPLabelStatic.Location = new System.Drawing.Point(15, 352);
+            this.maxHPLabelStatic.Location = new System.Drawing.Point(15, 373);
             this.maxHPLabelStatic.Name = "maxHPLabelStatic";
             this.maxHPLabelStatic.Size = new System.Drawing.Size(54, 16);
             this.maxHPLabelStatic.TabIndex = 37;
@@ -395,7 +403,7 @@
             // maxMPLabelStatic
             // 
             this.maxMPLabelStatic.AutoSize = true;
-            this.maxMPLabelStatic.Location = new System.Drawing.Point(15, 368);
+            this.maxMPLabelStatic.Location = new System.Drawing.Point(15, 389);
             this.maxMPLabelStatic.Name = "maxMPLabelStatic";
             this.maxMPLabelStatic.Size = new System.Drawing.Size(55, 16);
             this.maxMPLabelStatic.TabIndex = 38;
@@ -404,7 +412,7 @@
             // maxHealthLabel
             // 
             this.maxHealthLabel.AutoSize = true;
-            this.maxHealthLabel.Location = new System.Drawing.Point(164, 352);
+            this.maxHealthLabel.Location = new System.Drawing.Point(164, 373);
             this.maxHealthLabel.Name = "maxHealthLabel";
             this.maxHealthLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.maxHealthLabel.Size = new System.Drawing.Size(14, 16);
@@ -415,7 +423,7 @@
             // maxManaLabel
             // 
             this.maxManaLabel.AutoSize = true;
-            this.maxManaLabel.Location = new System.Drawing.Point(164, 368);
+            this.maxManaLabel.Location = new System.Drawing.Point(164, 389);
             this.maxManaLabel.Name = "maxManaLabel";
             this.maxManaLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.maxManaLabel.Size = new System.Drawing.Size(14, 16);
@@ -423,11 +431,31 @@
             this.maxManaLabel.Text = "0";
             this.maxManaLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // goldLabelFixed
+            // 
+            this.goldLabelFixed.AutoSize = true;
+            this.goldLabelFixed.Location = new System.Drawing.Point(15, 89);
+            this.goldLabelFixed.Name = "goldLabelFixed";
+            this.goldLabelFixed.Size = new System.Drawing.Size(36, 16);
+            this.goldLabelFixed.TabIndex = 41;
+            this.goldLabelFixed.Text = "Gold";
+            // 
+            // goldLabel
+            // 
+            this.goldLabel.AutoSize = true;
+            this.goldLabel.Location = new System.Drawing.Point(130, 89);
+            this.goldLabel.Name = "goldLabel";
+            this.goldLabel.Size = new System.Drawing.Size(14, 16);
+            this.goldLabel.TabIndex = 42;
+            this.goldLabel.Text = "0";
+            // 
             // MainGameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(730, 646);
+            this.Controls.Add(this.goldLabel);
+            this.Controls.Add(this.goldLabelFixed);
             this.Controls.Add(this.maxManaLabel);
             this.Controls.Add(this.maxHealthLabel);
             this.Controls.Add(this.maxMPLabelStatic);
@@ -511,5 +539,7 @@
         private System.Windows.Forms.Label maxMPLabelStatic;
         private System.Windows.Forms.Label maxHealthLabel;
         private System.Windows.Forms.Label maxManaLabel;
+        private Label goldLabelFixed;
+        private Label goldLabel;
     }
 }
