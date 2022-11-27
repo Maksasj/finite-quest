@@ -42,7 +42,12 @@
         },
         "woodland_tunic": {
             "name": "Woodland Tunic",
-            "type": "equipment_chest",
+            "type": "equitable",
+            "equipe": {
+                "slot": "chest",
+                "requirements": {
+                }
+            },
             "base_stats": {
                 "stamina": 3,
                 "armour": 3,

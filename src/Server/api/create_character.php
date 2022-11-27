@@ -69,6 +69,7 @@ $character["inventory"]["equipment"]["main_hand"] = new stdClass();
 $character["inventory"]["bag"] = array();
 $character["inventory"]["ammo_bag"] = array();
 
+$character["skills"] = new stdClass();
 
 $character["timestamps"]["creation_date"] = time();
 $character["timestamps"]["last_activity"] = time();

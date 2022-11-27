@@ -41,9 +41,7 @@ if (!$user["characters"][$character_name]) {
 
 $character = json_decode(file_get_contents("../charactersData/" . $character_name . ".json"), true);
 
-$time_between_combat = 5;
-
-if ($character["timestamps"]["last_combat"] + $time_between_combat > time()) {
+if ($character["timestamps"]["activity_cooldown"] > time()) {
     echo "Combat in process";
     exit;
 }
@@ -64,6 +62,7 @@ function calculateMobDamage($character) {
     return 2;
 }
 
+$delta_time = 0;
 $mob = json_decode(file_get_contents("general/mobs/" . $mob_name . ".json"), true);
 
 $character_stats = calculateCharacterStats($character);
@@ -77,6 +76,7 @@ $mob_health = calculateMobMaxHealth($mob);
 for($i = 0; true; $i++) {
     $character_dealed_damage = calculatePlayerDamage($character); 
     $mob_health -= $character_dealed_damage;
+    $delta_time++;
     
     if($mob_health < 0) {
         $log_tmp["damage_dealer"] = $character["name"];
@@ -98,6 +98,7 @@ for($i = 0; true; $i++) {
 
     $mob_dealed_damage = calculateMobDamage($mob); 
     $character_health -= $mob_dealed_damage;
+    $delta_time++;
     
     if($character_health < 0) {
         $log_tmp["damage_dealer"] = $mob["name"];
@@ -165,11 +166,12 @@ if($success == true) {
     $logs["result"]["received"]["items"] = array();
 }
 
-$logs["result"]["time"] = time();
+$logs["result"]["start_time"] = time();
+$logs["result"]["finish_time"] = time() + $delta_time;
 
 $character["timestamps"]["last_combat"] = time();
 $character["timestamps"]["last_activity"] = time();
-$character["timestamps"]["activity_cooldown"] = time();
+$character["timestamps"]["activity_cooldown"] = time() + $delta_time;
 
 file_put_contents("../charactersData/" . $character_name . ".json", prettyPrint(json_encode($character)));
 
