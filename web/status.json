@@ -1,9 +1,9 @@
 {
     "realms": [
         {
-            "realm-name": "Ursina",
-            "realm-status": "online",
-            "main-endpoint": "https://grumpy-shrimp-29.telebit.io/"
+            "realm_name": "Ursina",
+            "realm_status": "online",
+            "main_endpoint": "https://grumpy-shrimp-29.telebit.io/"
         }
     ]
 }
