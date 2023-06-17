@@ -5,7 +5,18 @@ namespace FQ.Server
     public class Program {
         public static void Main(string[] args) {
             var builder = WebApplication.CreateBuilder(args);
-            
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowCors", builder =>
+                {
+                    builder
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader();
+                });
+            });
+
             builder.Services.AddSingleton<RealmStatus>();
             builder.Services.AddSingleton<UserHandler>();
 
@@ -20,9 +31,10 @@ namespace FQ.Server
 
             var app = builder.Build();
 
+            app.UseCors("AllowCors");
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            // app.UseAuthorization();
 
             app.MapControllers();
 

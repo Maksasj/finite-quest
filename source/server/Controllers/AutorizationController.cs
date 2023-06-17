@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace FQ.Server.Controllers
 {
@@ -30,9 +31,14 @@ namespace FQ.Server.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromForm] UserRegistrationPost user)
+        public IActionResult Register(string user)
         {
+            _logger.Log(LogLevel.Information, user);
+            /*
             PrivateKeyType privateKey = PrivateKeyType.GenerateFromString(user.password);
+
+            if (_userHandler.IsUserExist(user.username))
+                return BadRequest("User already exists");
 
             if (!UsernameValidator.ValidateUsername(user.username))
                 return BadRequest("Username is not valid format, user name should not contains any spaces or speciall characters");
@@ -40,11 +46,8 @@ namespace FQ.Server.Controllers
             if(!PasswordValidator.ValidatePassword(user.password))
                 return BadRequest("Password, should have at least 8 characters, at least one uppercase letter, one lowercase letter, and one digit, and should not contains any spaces");
 
-            if (_userHandler.IsUserExist(user.username))
-                return BadRequest("User already exists");
-
             _userHandler.AddUser(user.username, privateKey);
-
+            */
             return Ok("User successfully created");
         }
     }
