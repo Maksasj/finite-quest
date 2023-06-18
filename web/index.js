@@ -47,7 +47,7 @@ async function tableUpdate() {
         .done(function (data, textStatus, jqXHR) {
             realmStatus[realm.main_endpoint] = {
                 status: 'online',
-                population: realm.usersOnline + '/' + realm.population,
+                population: data.usersOnline + '/' + data.population,
             };
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
