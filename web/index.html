@@ -6,6 +6,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Finite Quest</title>
+        
+        <style>
+            #registrationFormInfo {
+                color: red;
+                font-style: italic;
+                margin-top: 8px;
+            }
+        </style>
+
     </head>
     <div align="center">
         <h1>Finite Quest</h1>
@@ -18,13 +27,18 @@
     <hr style="width:80%;margin:0 auto">
     <div style="width:80%;margin:0 auto">
         <div align="center">
-            <form action="http://localhost:5218/authorization/register" method="post">
+            <form id="registrationForm" action="#" method="post">
                 <h3>Ursina registration form</h3>
-                Username: <input type="text" name="username" required><br>
-                Password: <input type="text" name="password" required><br>
-                <input type="submit" value = "Register">
+                Username: <input type="text" id="registrationFormUsername" name="username" required><br>
+                Password: <input type="password" id="registrationFormPassword" name="password" required><br>
+                <input type="submit" value="Register"></input>
             </form>
+            <div id="registrationFormInfo"></div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+
     </body>
 </html>
