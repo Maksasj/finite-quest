@@ -33,8 +33,6 @@ namespace FQ.Server.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromForm] UserRegistrationPost user)
         {
-            PrivateKeyType privateKey = PrivateKeyType.GenerateFromString(user.password);
-
             if (_userHandler.IsUserExist(user.username))
                 return BadRequest("User already exists");
 		
@@ -43,6 +41,8 @@ namespace FQ.Server.Controllers
             
             if(!PasswordValidator.ValidatePassword(user.password))
                 return BadRequest("Password, should have at least 8 characters, at least one uppercase letter, one lowercase letter, and one digit, and should not contains any spaces");
+            
+            PrivateKeyType privateKey = PrivateKeyType.GenerateFromString(user.password + user.username);
 	
             _userHandler.AddUser(user.username, privateKey);
 
