@@ -20,7 +20,7 @@
                 name = "Ursina",
                 welcomeMessage = "Welcom to Ursina realm !",
                 usersOnline = 0,
-                userCount = _userHandler.GetUserCount()
+                population = _userHandler.GetUserCount()
             };
         }
     }
